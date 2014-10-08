@@ -17,3 +17,6 @@ test/version_tmp
 test/.vagrant
 tmp
 .vagrant
+vendor
+*.un~
+*.orig
