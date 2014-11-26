@@ -217,7 +217,6 @@ module VagrantPlugins
       autoload :Destroy, action_root.join('destroy')
       autoload :Reload, action_root.join('reload')
       autoload :Rebuild, action_root.join('rebuild')
-      autoload :SetupKey, action_root.join('setup_key')
       autoload :SetupUser, action_root.join('setup_user')
       autoload :SetupSudo, action_root.join('setup_sudo')
       autoload :SyncFolders, action_root.join('sync_folders')
