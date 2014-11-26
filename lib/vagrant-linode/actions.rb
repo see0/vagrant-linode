@@ -12,7 +12,7 @@ module VagrantPlugins
           builder.use ConfigValidate
           builder.use Call, IsCreated do |env, b|
             case env[:machine_state]
-            when :not_created
+            when :not_created, false
               env[:ui].info I18n.t('vagrant_linode.info.not_created')
             else
               b.use Call, DestroyConfirm do |env2, b2|
@@ -44,7 +44,7 @@ module VagrantPlugins
               b.use SSHExec
             when :off
               env[:ui].info I18n.t('vagrant_linode.info.off')
-            when :not_created
+            when :not_created, false
               env[:ui].info I18n.t('vagrant_linode.info.not_created')
             end
           end
@@ -60,7 +60,7 @@ module VagrantPlugins
               b.use SSHRun
             when :off
               env[:ui].info I18n.t('vagrant_linode.info.off')
-            when :not_created
+            when :not_created, false
               env[:ui].info I18n.t('vagrant_linode.info.not_created')
             end
           end
@@ -78,7 +78,7 @@ module VagrantPlugins
               b.use SyncFolders
             when :off
               env[:ui].info I18n.t('vagrant_linode.info.off')
-            when :not_created
+            when :not_created, false
               env[:ui].info I18n.t('vagrant_linode.info.not_created')
             end
           end
@@ -91,12 +91,15 @@ module VagrantPlugins
           builder.use Call, IsCreated do |env, b|
             case env[:machine_state]
             when :active
-              env[:ui].info I18n.t('vagrant_linode.info.already_active')
+              b.use Message, I18n.t("vagrant_linode.info.already_active")
+	      next
             when :off
+              b.use Message, I18n.t("vagrant_linode.info.off")
               b.use ConnectLinode
               b.use PowerOn
               b.use Provision
-            when :not_created
+            when :not_created, false
+              b.use Message, I18n.t("vagrant_linode.info.not_created")
               # b.use SetupKey # no access to ssh keys in linode api
               b.use ConnectLinode
               b.use Create
@@ -118,7 +121,7 @@ module VagrantPlugins
               b.use PowerOff
             when :off
               env[:ui].info I18n.t('vagrant_linode.info.already_off')
-            when :not_created
+            when :not_created, false
               env[:ui].info I18n.t('vagrant_linode.info.not_created')
             end
           end
@@ -136,7 +139,7 @@ module VagrantPlugins
               b.use Provision
             when :off
               env[:ui].info I18n.t('vagrant_linode.info.off')
-            when :not_created
+            when :not_created, false
               env[:ui].info I18n.t('vagrant_linode.info.not_created')
             end
           end
@@ -154,7 +157,7 @@ module VagrantPlugins
               b.use SetupSudo
               b.use SetupUser
               b.use Provision
-            when :not_created
+            when :not_created, false
               env[:ui].info I18n.t('vagrant_linode.info.not_created')
             end
           end
