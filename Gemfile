@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 group :plugins do
   gemspec
-  gem 'vagrant', git: 'https://github.com/mitchellh/vagrant', tag: 'v1.6.5'
+  gem 'vagrant', git: 'https://github.com/mitchellh/vagrant'
   gem 'linode', github: 'displague/linode', branch: 'missingImageNS'
 
 end
